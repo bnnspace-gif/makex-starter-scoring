@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Robot Scoring</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#0f1724; color:#fff; text-align:center; }
+    h1 { margin-top:20px; }
+    h2 { margin-top:20px; }
+    .header { margin: 20px auto; }
+    .header-banana img { max-width: 220px; border-radius:0px; }
+    .header-makex img { max-width: 160px; border-radius:12px; }
+    .container { display: flex; justify-content: space-around; margin: 20px; }
+    .card { background:#1e293b; padding:20px; border-radius:12px; width:40%; }
+    label { display:flex; align-items:center; justify-content:space-between; margin:6px 0; }
+    .mission-info { display:flex; align-items:center; gap:8px; }
+    .mission-info img { width:140px; height:80px; object-fit:cover; border-radius:6px; background:#fff; }
+    select { margin-left: 8px; }
+    .summary { background:#334155; margin:20px auto; padding:20px; border-radius:12px; width:80%; }
+  </style>
+</head>
+<body>
+  <!-- <h1>Banana Space Coding and Robotics</h1> -->
+  <div class="header-banana"> 
+    <img src="img/logo-full-Bg.png" alt="Robot Scoring Logo"> 
+  </div>
+  <div class="header-makex"> 
+    <img src="img/logo.png" alt="Robot Scoring Logo"> 
+  </div>
+
+  <!-- Independent Score -->
+  <h2>Independent Score</h2>
+  <div class="container">
+    <div class="card">
+      <h3 style="color:red;">Red Team</h3>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent red" value="20"> 
+          <span>M01 (20pts)</span>
+          <img src="img/m01.png" alt="M01">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent red" value="20"> 
+          <span>M02 (20pts)</span>
+          <img src="img/m02.png" alt="M02">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent red" value="30"> 
+          <span>M03 (30pts)</span>
+          <img src="img/m03.png" alt="M03">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent red" value="20"> 
+          <span>M04 (20pts)</span>
+          <img src="img/m04.png" alt="M04">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent red" value="30"> 
+          <span>M05 (30pts)</span>
+          <img src="img/m05.png" alt="M05">
+        </div>
+      </label>
+    </div>
+
+    <div class="card">
+      <h3 style="color:skyblue;">Blue Team</h3>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent blue" value="20"> 
+          <span>M01 (20pts)</span>
+          <img src="img/m01.png" alt="M01">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent blue" value="20"> 
+          <span>M02 (20pts)</span>
+          <img src="img/m02.png" alt="M02">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent blue" value="30"> 
+          <span>M03 (30pts)</span>
+          <img src="img/m03.png" alt="M03">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent blue" value="20"> 
+          <span>M04 (20pts)</span>
+          <img src="img/m04.png" alt="M04">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <input type="checkbox" class="independent blue" value="30"> 
+          <span>M05 (30pts)</span>
+          <img src="img/m05.png" alt="M05">
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Alliance Score -->
+  <h2>Alliance Score</h2>
+  <div class="card" style="width:60%; margin:auto;">
+    <label>M06 (20pts each, max 3 = 60pts):
+      <select id="m06">
+        <option value="0">0</option>
+        <option value="20">1</option>
+        <option value="40">2</option>
+        <option value="60">3</option>
+      </select>
+    </label>
+    <label>M07 (30pts each, max 3 = 90pts):
+      <select id="m07">
+        <option value="0">0</option>
+        <option value="30">1</option>
+        <option value="60">2</option>
+        <option value="90">3</option>
+      </select>
+    </label>
+    <label>M08 (20pts each, max 9 = 180pts):
+      <select id="m08a">
+        <option value="0">0</option>
+        <option value="20">1</option>
+        <option value="40">2</option>
+        <option value="60">3</option>
+        <option value="80">4</option>
+        <option value="100">5</option>
+        <option value="120">6</option>
+        <option value="140">7</option>
+        <option value="160">8</option>
+        <option value="180">9</option>
+      </select>
+    </label>
+    <label>M08 (50pts each, max 2 = 100pts):
+      <select id="m08b">
+        <option value="0">0</option>
+        <option value="50">1</option>
+        <option value="100">2</option>
+      </select>
+    </label>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary">
+    <h2>Summary</h2>
+    <p>Red Independent: <span id="redInd">0</span> pts</p>
+    <p>Blue Independent: <span id="blueInd">0</span> pts</p>
+    <p>Alliance: <span id="alliance">0</span> pts</p>
+    <hr>
+    <p><strong>Red Total: <span id="redTotal">0</span> pts</strong></p>
+    <p><strong>Blue Total: <span id="blueTotal">0</span> pts</strong></p>
+  </div>
+
+  <script>
+    const redIndEl = document.getElementById('redInd');
+    const blueIndEl = document.getElementById('blueInd');
+    const allianceEl = document.getElementById('alliance');
+    const redTotalEl = document.getElementById('redTotal');
+    const blueTotalEl = document.getElementById('blueTotal');
+
+    function updateScores(){
+      let redInd = 0, blueInd = 0, alliance = 0;
+
+      document.querySelectorAll('.independent.red:checked').forEach(cb => redInd += parseInt(cb.value));
+      document.querySelectorAll('.independent.blue:checked').forEach(cb => blueInd += parseInt(cb.value));
+
+      alliance = parseInt(m06.value) + parseInt(m07.value) + parseInt(m08a.value) + parseInt(m08b.value);
+
+      redIndEl.textContent = redInd;
+      blueIndEl.textContent = blueInd;
+      allianceEl.textContent = alliance;
+      redTotalEl.textContent = redInd + alliance;
+      blueTotalEl.textContent = blueInd + alliance;
+    }
+
+    document.querySelectorAll('input[type="checkbox"], select').forEach(el => el.addEventListener('change', updateScores));
+  </script>
+</body>
+</html>
