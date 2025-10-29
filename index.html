@@ -69,6 +69,30 @@
           <img src="img/m05.png" alt="M05">
         </div>
       </label>
+      <label>
+        <div class="mission-info">
+          <select id="redM06">
+            <option value="0">0</option>
+            <option value="20">1</option>
+            <option value="40">2</option>
+            <option value="60">3</option>
+          </select>
+          <span>M06 (30pts)</span>
+          <img src="img/m06.png" alt="M06">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <select id="redPenalty">
+            <option value="0">0</option>
+            <option value="-20">-20</option>
+            <option value="-40">-40</option>
+            <option value="-60">-60</option>
+          </select>
+          <span>Penalty</span>
+          <!-- <img src="img/m06.png" alt="M06"> -->
+        </div>
+      </label>
     </div>
 
     <div class="card">
@@ -108,20 +132,36 @@
           <img src="img/m05.png" alt="M05">
         </div>
       </label>
+      <label>
+        <div class="mission-info">
+          <select id="blueM06">
+            <option value="0">0</option>
+            <option value="20">1</option>
+            <option value="40">2</option>
+            <option value="60">3</option>
+          </select>
+          <span>M06 (30pts)</span>
+          <img src="img/m06.png" alt="M06">
+        </div>
+      </label>
+      <label>
+        <div class="mission-info">
+          <select id="bluePenalty">
+            <option value="0">0</option>
+            <option value="-20">-20</option>
+            <option value="-40">-40</option>
+            <option value="-60">-60</option>
+          </select>
+          <span>Penalty</span>
+          <!-- <img src="img/m06.png" alt="M06"> -->
+        </div>
+      </label>
     </div>
   </div>
 
   <!-- Alliance Score -->
   <h2>Alliance Score</h2>
   <div class="card" style="width:60%; margin:auto;">
-    <label>M06 (20pts each, max 3 = 60pts):
-      <select id="m06">
-        <option value="0">0</option>
-        <option value="20">1</option>
-        <option value="40">2</option>
-        <option value="60">3</option>
-      </select>
-    </label>
     <label>M07 (30pts each, max 3 = 90pts):
       <select id="m07">
         <option value="0">0</option>
@@ -154,39 +194,170 @@
   </div>
 
   <!-- Summary -->
-  <div class="summary">
-    <h2>Summary</h2>
-    <p>Red Independent: <span id="redInd">0</span> pts</p>
-    <p>Blue Independent: <span id="blueInd">0</span> pts</p>
-    <p>Alliance: <span id="alliance">0</span> pts</p>
-    <hr>
-    <p><strong>Red Total: <span id="redTotal">0</span> pts</strong></p>
-    <p><strong>Blue Total: <span id="blueTotal">0</span> pts</strong></p>
+  <div class="container">
+    <div class="card">
+      <h2>Summary</h2>
+      <p>Red Independent: <span id="redInd">0</span> pts</p>
+      <p>Blue Independent: <span id="blueInd">0</span> pts</p>
+      <p>Alliance: <span id="alliance">0</span> pts</p>
+      <hr>
+      <p><strong>Red Total: <span id="redTotal">0</span> pts</strong></p>
+      <p><strong>Blue Total: <span id="blueTotal">0</span> pts</strong></p>
+    </div>
+
+    <div class="card">
+      <h2 id="timer-display" style="font-size:4em; margin-bottom:20px;">04:00</h2>
+
+  <button id="start-btn" style="font-size:1em; padding:12px 35px; margin:10px; background:#2196F3; color:white; border:none; border-radius:10px; cursor:pointer;">Start</button>
+
+  <button id="resume-btn" style="font-size:1em; padding:12px 35px; margin:10px; background:#2196F3; color:white; border:none; border-radius:10px; cursor:pointer;" disabled>Resume</button>
+
+  <button id="stop-btn" style="font-size:1em; padding:12px 35px; margin:10px; background:#2196F3; color:white; border:none; border-radius:10px; cursor:pointer;" disabled>Stop</button>
+    </div>
   </div>
 
+
   <script>
-    const redIndEl = document.getElementById('redInd');
-    const blueIndEl = document.getElementById('blueInd');
-    const allianceEl = document.getElementById('alliance');
-    const redTotalEl = document.getElementById('redTotal');
-    const blueTotalEl = document.getElementById('blueTotal');
+  const redIndEl = document.getElementById('redInd');
+  const blueIndEl = document.getElementById('blueInd');
+  const allianceEl = document.getElementById('alliance');
+  const redTotalEl = document.getElementById('redTotal');
+  const blueTotalEl = document.getElementById('blueTotal');
 
-    function updateScores(){
-      let redInd = 0, blueInd = 0, alliance = 0;
+  function updateScores() {
+    let redInd = 0, blueInd = 0, alliance = 0;
 
-      document.querySelectorAll('.independent.red:checked').forEach(cb => redInd += parseInt(cb.value));
-      document.querySelectorAll('.independent.blue:checked').forEach(cb => blueInd += parseInt(cb.value));
+    // Independent missions
+    document.querySelectorAll('.independent.red:checked').forEach(cb => {
+      redInd += parseInt(cb.value) || 0;
+    });
+    document.querySelectorAll('.independent.blue:checked').forEach(cb => {
+      blueInd += parseInt(cb.value) || 0;
+    });
 
-      alliance = parseInt(m06.value) + parseInt(m07.value) + parseInt(m08a.value) + parseInt(m08b.value);
+    // Independent M06 selects
+    const redM06 = document.getElementById('redM06');
+    const blueM06 = document.getElementById('blueM06');
+    if (redM06) redInd += parseInt(redM06.value) || 0;
+    if (blueM06) blueInd += parseInt(blueM06.value) || 0;
 
-      redIndEl.textContent = redInd;
-      blueIndEl.textContent = blueInd;
-      allianceEl.textContent = alliance;
-      redTotalEl.textContent = redInd + alliance;
-      blueTotalEl.textContent = blueInd + alliance;
-    }
+    // Alliance missions
+    const m07 = document.getElementById('m07');
+    const m08a = document.getElementById('m08a');
+    const m08b = document.getElementById('m08b');
+    alliance =
+      (parseInt(m07?.value) || 0) +
+      (parseInt(m08a?.value) || 0) +
+      (parseInt(m08b?.value) || 0);
 
-    document.querySelectorAll('input[type="checkbox"], select').forEach(el => el.addEventListener('change', updateScores));
-  </script>
+    // Penalty
+    const redPenalty = document.getElementById('redPenalty');
+    const bluePenalty = document.getElementById('bluePenalty');
+    const redPen = parseInt(redPenalty?.value) || 0;
+    const bluePen = parseInt(bluePenalty?.value) || 0;
+
+    // Update display
+    redIndEl.textContent = redInd + redPen;
+    blueIndEl.textContent = blueInd + bluePen;
+    allianceEl.textContent = alliance;
+
+    // รวมคะแนนทั้งหมด (Independent + Alliance - Penalty)
+    const redTotal = redInd + alliance + redPen;
+    const blueTotal = blueInd + alliance + bluePen;
+
+    redTotalEl.textContent = redTotal;
+    blueTotalEl.textContent = blueTotal;
+  }
+
+  // Update scores on change
+  document
+    .querySelectorAll('input[type="checkbox"], select')
+    .forEach(el => el.addEventListener('change', updateScores));
+</script>
+
+
+  
 </body>
 </html>
+
+
+<script>
+  let timer;
+  let totalTime = 240; // 4 นาที = 240 วินาที
+  let remainingTime = totalTime;
+  let isRunning = false;
+
+  const display = document.getElementById("timer-display");
+  const startBtn = document.getElementById("start-btn");
+  const resumeBtn = document.getElementById("resume-btn");
+  const stopBtn = document.getElementById("stop-btn");
+
+  function updateDisplay() {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+    display.textContent =
+      `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  }
+
+  function startTimer() {
+    if (isRunning) return;
+    isRunning = true;
+    startBtn.disabled = true;
+    resumeBtn.disabled = true;
+    stopBtn.disabled = false;
+
+    timer = setInterval(() => {
+      remainingTime--;
+      updateDisplay();
+
+      if (remainingTime <= 0) {
+        clearInterval(timer);
+        isRunning = false;
+        display.textContent = "TIME UP!";
+        startBtn.disabled = false;
+        resumeBtn.disabled = true;
+        stopBtn.disabled = true;
+        remainingTime = totalTime;
+      }
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+    isRunning = false;
+    resumeBtn.disabled = false;
+    stopBtn.disabled = true;
+  }
+
+  function resumeTimer() {
+    if (isRunning || remainingTime <= 0) return;
+    isRunning = true;
+    resumeBtn.disabled = true;
+    stopBtn.disabled = false;
+
+    timer = setInterval(() => {
+      remainingTime--;
+      updateDisplay();
+      if (remainingTime <= 0) {
+        clearInterval(timer);
+        isRunning = false;
+        display.textContent = "TIME UP!";
+        startBtn.disabled = false;
+        resumeBtn.disabled = true;
+        stopBtn.disabled = true;
+        remainingTime = totalTime;
+      }
+    }, 1000);
+  }
+
+  startBtn.addEventListener("click", () => {
+    remainingTime = totalTime;
+    updateDisplay();
+    startTimer();
+  });
+
+  stopBtn.addEventListener("click", stopTimer);
+  resumeBtn.addEventListener("click", resumeTimer);
+
+  updateDisplay(); // initial display
+</script>
