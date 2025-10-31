@@ -191,6 +191,13 @@
         <option value="100">2</option>
       </select>
     </label>
+    <label>M09 (30pts each, max 2 = 60pts):
+      <select id="m09">
+        <option value="0">0</option>
+        <option value="30">1</option>
+        <option value="60">2</option>
+      </select>
+    </label>
   </div>
 
   <!-- Summary -->
@@ -245,10 +252,12 @@
     const m07 = document.getElementById('m07');
     const m08a = document.getElementById('m08a');
     const m08b = document.getElementById('m08b');
+    const m09 = document.getElementById('m09');
     alliance =
       (parseInt(m07?.value) || 0) +
       (parseInt(m08a?.value) || 0) +
-      (parseInt(m08b?.value) || 0);
+      (parseInt(m08b?.value) || 0) +
+      (parseInt(m09?.value) || 0);
 
     // Penalty
     const redPenalty = document.getElementById('redPenalty');
