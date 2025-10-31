@@ -292,9 +292,10 @@
 
 <script>
   let timer;
-  let totalTime = 240; // 4 นาที = 240 วินาที
+  let totalTime = 240000; // 4 นาที = 240 วินาที = 240000 มิลลิวินาที
   let remainingTime = totalTime;
   let isRunning = false;
+  const interval = 10; // อัปเดตทุก 10 มิลลิวินาที
 
   const display = document.getElementById("timer-display");
   const startBtn = document.getElementById("start-btn");
@@ -302,10 +303,14 @@
   const stopBtn = document.getElementById("stop-btn");
 
   function updateDisplay() {
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
+    const minutes = Math.floor(remainingTime / 60000);
+    const seconds = Math.floor((remainingTime % 60000) / 1000);
+    const milliseconds = Math.floor((remainingTime % 1000) / 10);
+
     display.textContent =
-      `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      `${minutes.toString().padStart(2, "0")}:` +
+      `${seconds.toString().padStart(2, "0")}:` +
+      `${milliseconds.toString().padStart(2, "0")}`;
   }
 
   function startTimer() {
@@ -316,7 +321,7 @@
     stopBtn.disabled = false;
 
     timer = setInterval(() => {
-      remainingTime--;
+      remainingTime -= interval;
       updateDisplay();
 
       if (remainingTime <= 0) {
@@ -328,7 +333,7 @@
         stopBtn.disabled = true;
         remainingTime = totalTime;
       }
-    }, 1000);
+    }, interval);
   }
 
   function stopTimer() {
@@ -345,8 +350,9 @@
     stopBtn.disabled = false;
 
     timer = setInterval(() => {
-      remainingTime--;
+      remainingTime -= interval;
       updateDisplay();
+
       if (remainingTime <= 0) {
         clearInterval(timer);
         isRunning = false;
@@ -356,7 +362,7 @@
         stopBtn.disabled = true;
         remainingTime = totalTime;
       }
-    }, 1000);
+    }, interval);
   }
 
   startBtn.addEventListener("click", () => {
@@ -370,3 +376,4 @@
 
   updateDisplay(); // initial display
 </script>
+
